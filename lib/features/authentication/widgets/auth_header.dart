@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gov_ease/core/constants/app_colors.dart';
 
 class AuthHeader extends StatelessWidget {
-  const AuthHeader({super.key});
+  final String? title;
+  final String? subTitle;
+  const AuthHeader({super.key, this.title, this.subTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +19,8 @@ class AuthHeader extends StatelessWidget {
         ),
         const SizedBox(height: 24),
 
-        const Text(
-          'مرحباً بعودتك',
+        Text(
+          title ?? 'مرحباً بعودتك',
           textAlign: TextAlign.right,
           style: TextStyle(
             fontSize: 26,
@@ -29,8 +31,8 @@ class AuthHeader extends StatelessWidget {
         ),
         const SizedBox(height: 8),
 
-        const Text(
-          'سجّل الدخول لمتابعة حجوزاتك وخدماتك.',
+        Text(
+          subTitle ?? 'سجّل الدخول لمتابعة حجوزاتك وخدماتك.',
           textAlign: TextAlign.right,
           style: TextStyle(
             fontSize: 14,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gov_ease/features/authentication/screens/account_created_screen.dart';
+import 'package:gov_ease/features/authentication/screens/forgot_password_screen.dart';
 import 'package:gov_ease/features/authentication/screens/login_screen.dart';
 import 'package:gov_ease/features/authentication/screens/register_screen.dart';
 import 'package:gov_ease/features/authentication/screens/splash_screen.dart';
@@ -8,6 +10,7 @@ class AppRoutes {
   static const String splash = '/';
   static const String login = '/login';
   static const String register = '/register';
+  static const String accountCreated = '/account-created';
   static const String forgotPassword = '/forgot-password';
   static const String resetPassword = '/reset-password';
 
@@ -33,5 +36,7 @@ class AppRoutes {
     splash: (context) => const SplashScreen(),
     login: (context) => const LoginScreen(),
     register: (context) => const RegisterScreen(),
+    forgotPassword: (context) => const ForgotPasswordScreen(),
+    accountCreated: (context) => const AccountCreatedScreen(),
   };
 }
