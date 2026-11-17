@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "195957589755",
+    "project_id": "govease-6cf59",
+    "storage_bucket": "govease-6cf59.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195957589755:android:082456d319ef8596ec525e",
+        "android_client_info": {
+          "package_name": "com.example.gov_ease"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBrN1dkWOoJVMnn_3L3vwRgkBBeCL-T54"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
