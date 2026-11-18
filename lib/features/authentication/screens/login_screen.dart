@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gov_ease/core/app_routes.dart';
 import 'package:gov_ease/core/constants/app_colors.dart';
+import 'package:gov_ease/features/authentication/data/auth_service.dart';
+import 'package:gov_ease/features/authentication/widgets/auth_error_banner.dart';
 import 'package:gov_ease/features/authentication/widgets/auth_header.dart';
 import 'package:gov_ease/features/authentication/widgets/custom_elevated_button.dart';
 import 'package:gov_ease/features/authentication/widgets/custom_text_field.dart';
@@ -17,6 +20,42 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isChecked = false;
+  bool isLoading = false;
+  String? errorMessage;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _login() async {
+    final email = emailController.text.trim();
+    final password = passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      setState(() => errorMessage = 'أدخل البريد الإلكتروني وكلمة المرور');
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+      errorMessage = null;
+    });
+
+    try {
+      await AuthService().login(email: email, password: password);
+      if (!mounted) return;
+      Navigator.pushNamedAndRemoveUntil(context, AppRoutes.home, (r) => false);
+    } on FirebaseAuthException catch (e) {
+      if (!mounted) return;
+      setState(() => errorMessage = authErrorMessage(e));
+    } finally {
+      if (mounted) setState(() => isLoading = false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +73,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     const SizedBox(height: 32),
 
+                    if (errorMessage != null) ...[
+                      AuthErrorBanner(message: errorMessage!),
+                      const SizedBox(height: 16),
+                    ],
+
                     CustomTextField(
                       label: "البريد الإلكتروني",
                       hintText: "name@example.com",
@@ -49,7 +93,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       hintText: "Password",
                       controller: passwordController,
                       icon: Icons.lock_outline_rounded,
-
                       isPassword: true,
                     ),
 
@@ -71,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                     CustomElevatedButton(
                       text: 'تسجيل الدخول',
-                      onPressed: () {},
+                      onPressed: isLoading ? null : _login,
                     ),
                     const Spacer(),
                     Row(

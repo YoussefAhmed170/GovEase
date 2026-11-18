@@ -3,7 +3,7 @@ import 'package:gov_ease/core/constants/app_colors.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool isLoading;
 
   const CustomElevatedButton({
